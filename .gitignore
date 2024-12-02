@@ -3,6 +3,7 @@ Makefile
 .mxproject
 *.s
 *.ld
+.vscode
 bsp/*/Core/Inc/*
 bsp/*/Core/Src/*
 bsp/*/Drivers/*

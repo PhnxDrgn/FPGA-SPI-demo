@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "app.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,6 +59,15 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void toggleLed()
+{
+  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+}
+
+uint32_t millis()
+{
+  return HAL_GetTick();
+}
 
 /* USER CODE END 0 */
 
@@ -100,6 +109,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    app();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

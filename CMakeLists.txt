@@ -9,7 +9,7 @@ set(CMAKE_TOOLCHAIN_FILE "../arm-none-eabi-gcc.cmake")
 set(CUBE_PROG_EXE $ENV{CUBE_PROG_EXE}) 
 
 # set project name
-project(blink)
+project(FPGA-SPI-Demo)
 
 # Set microcontroller information
 set(MCU_FAMILY STM32F3xx)

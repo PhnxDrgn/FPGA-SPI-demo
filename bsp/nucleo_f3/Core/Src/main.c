@@ -21,6 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <string.h>
 #include "app.h"
 /* USER CODE END Includes */
 
@@ -67,6 +68,47 @@ void toggleLed()
 uint32_t millis()
 {
   return HAL_GetTick();
+}
+
+void serialPrint(char *str)
+{
+  HAL_UART_Transmit(&huart2, (uint8_t *)str, strlen(str), 100);
+}
+
+int8_t serialRead(uint8_t *buffer, uint16_t bytes, uint32_t timeout)
+{
+  if (HAL_UART_Receive(&huart2, buffer, bytes, timeout) != HAL_OK)
+    return -1;
+  return 0;
+}
+
+int32_t serialReadString(char *buffer, uint32_t bufferSize, uint32_t timeout)
+{
+  int32_t bytesRead = 0;
+  char c;
+  uint32_t startMillis = millis();
+
+  while (millis() - startMillis < timeout)
+  {
+    // null terminate and end if buffer size reached
+    if (bytesRead == bufferSize - 1)
+    {
+      buffer[bytesRead] = '\0';
+    }
+
+    if (serialRead((uint8_t *)&c, 1, timeout) < 0)
+      return -1;
+
+    if (c == '\n')
+    {
+      buffer[bytesRead++] = '\0'; // null terminate
+      break;
+    }
+
+    buffer[bytesRead++] = c;
+  }
+
+  return bytesRead;
 }
 
 /* USER CODE END 0 */

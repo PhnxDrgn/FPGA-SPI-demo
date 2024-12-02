@@ -56,6 +56,9 @@ extern "C"
   /* USER CODE BEGIN EFP */
   void toggleLed();
   uint32_t millis();
+  void serialPrint(char *str);
+  int8_t serialRead(uint8_t *buffer, uint16_t bytes, uint32_t timeout);
+  int32_t serialReadString(char *buffer, uint32_t bufferSize, uint32_t timeout);
 
 /* USER CODE END EFP */
 

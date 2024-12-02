@@ -3,8 +3,6 @@ Makefile
 .mxproject
 *.s
 *.ld
-bsp/*/Core
-bsp/*/Drivers
 bsp/*/Core/Inc/*
 bsp/*/Core/Src/*
 bsp/*/Drivers/*

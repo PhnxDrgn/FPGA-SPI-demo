@@ -69,6 +69,8 @@ extern "C"
 #define VCP_TX_GPIO_Port GPIOA
 #define FPGA_CS_Pin GPIO_PIN_4
 #define FPGA_CS_GPIO_Port GPIOA
+#define FPGA_RST_Pin GPIO_PIN_0
+#define FPGA_RST_GPIO_Port GPIOB
 #define SWDIO_Pin GPIO_PIN_13
 #define SWDIO_GPIO_Port GPIOA
 #define SWCLK_Pin GPIO_PIN_14

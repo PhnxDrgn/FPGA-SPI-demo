@@ -54,8 +54,11 @@ extern "C"
   void Error_Handler(void);
 
   /* USER CODE BEGIN EFP */
-  void toggleLed();
+  void setFpgaRst(GPIO_PinState state);
+  void setFpgaCs(GPIO_PinState state);
+  int8_t txRxFpgaSpi(uint16_t *txData, uint16_t *rxData, uint16_t dataLen);
   uint32_t millis();
+  void delay(uint32_t ms);
   void serialPrint(char *str);
   int8_t serialRead(uint8_t *buffer, uint16_t bytes, uint32_t timeout);
   int32_t serialReadString(char *buffer, uint32_t bufferSize, uint32_t timeout);

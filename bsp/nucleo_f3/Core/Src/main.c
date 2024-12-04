@@ -60,14 +60,30 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void toggleLed()
+
+void setFpgaRst(GPIO_PinState state)
 {
-  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+  HAL_GPIO_WritePin(FPGA_RST_GPIO_Port, FPGA_RST_Pin, state);
+}
+
+void setFpgaCs(GPIO_PinState state)
+{
+  HAL_GPIO_WritePin(FPGA_CS_GPIO_Port, FPGA_CS_Pin, state);
+}
+
+int8_t txRxFpgaSpi(uint16_t *txData, uint16_t *rxData, uint16_t dataLen)
+{
+  return HAL_SPI_TransmitReceive(&hspi1, (uint8_t *)txData, (uint8_t *)rxData, dataLen, 100);
 }
 
 uint32_t millis()
 {
   return HAL_GetTick();
+}
+
+void delay(uint32_t ms)
+{
+  HAL_Delay(ms);
 }
 
 void serialPrint(char *str)
@@ -213,11 +229,11 @@ static void MX_SPI1_Init(void)
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_4BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.DataSize = SPI_DATASIZE_16BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
